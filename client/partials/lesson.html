@@ -1,0 +1,61 @@
+<section class="row" data-ng-controller="LessonController" data-ng-init="init()">
+    <div class="col-lg-8">
+        <div class="panelBlock">
+            <h4>{{lesson.title}}</h4>
+
+            <div>
+                <input class="componentBlock form-control" data-ng-model="lesson.title" placeholder="title">
+                <input type="text"
+                       class="componentBlock form-control "
+                       data-ng-model="lesson.summary"
+                       placeholder="summary">
+            </div>
+
+            <div class="actionButtonGroup">
+                <button class="btn btn-primary btn-embossed btn-wide" data-ng-click="save()">更新</button>
+            </div>
+        </div>
+        <hr>
+        <div class="panelBlock">
+            <h5>活动列表
+                <button class="btn btn-primary btn-embossed btn-wide pull-right" data-ng-click="save()">添加活动
+                </button>
+            </h5>
+
+            <div class="componentBlock" data-ng-repeat="activity in lesson.activities">
+                <div class="dialog dialog-success">
+                    sasdasd
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="dialog dialog-info">
+            <h6>{{lesson.title}}</h6>
+
+            <p>{{lesson.summary}}</p>
+        </div>
+    </div>
+</section>
+
+
+<div class="modal" id="infoDialg">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal header</h4>
+            </div>
+
+            <div class="modal-body">
+                <p>Modal content</p>
+            </div>
+
+            <div class="modal-footer">
+                <a href="#" class="btn">OK</a>
+            </div>
+        </div>
+    </div>
+</div>
