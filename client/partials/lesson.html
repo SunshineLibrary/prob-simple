@@ -2,60 +2,151 @@
     <div class="col-lg-8">
         <div class="panelBlock">
             <h4>{{lesson.title}}</h4>
-
             <div>
                 <input class="componentBlock form-control" data-ng-model="lesson.title" placeholder="title">
-                <input type="text"
-                       class="componentBlock form-control "
-                       data-ng-model="lesson.summary"
-                       placeholder="summary">
+                <textarea class="componentBlock form-control"
+                          ng-model="lesson.summary"
+                          rows="3">
+                </textarea>
             </div>
 
             <div class="actionButtonGroup">
-                <button class="btn btn-primary btn-embossed btn-wide" data-ng-click="save()">更新</button>
+                <button class="btn btn-primary btn-embossed btn-wide" data-ng-click="save()">保存</button>
             </div>
         </div>
         <hr>
         <div class="panelBlock">
             <h5>活动列表
-                <button class="btn btn-primary btn-embossed btn-wide pull-right" data-ng-click="save()">添加活动
-                </button>
+                <span data-ng-repeat="type in utils.allActivityTypes">
+                    <button class="btn btn-primary btn-embossed btn-sm"
+                            data-ng-click="showDialog('newActivity',[type.type])">创建{{type.title}}
+                    </button>
+                </span>
             </h5>
 
-            <div class="componentBlock" data-ng-repeat="activity in lesson.activities">
-                <div class="dialog dialog-success">
-                    sasdasd
-                </div>
-            </div>
+            <ul class="nav nav-list">
+                <li data-ng-repeat="activity in lesson.activities">
+                    <a data-ng-click="showDialog('editActivity', [activity])">
+                        <span class="label label-default">
+                            {{utils.getActivityType(activity.type).title}}
+                        </span>
+                        &nbsp;{{activity.title}}
+                    </a>
+                </li>
+            </ul>
         </div>
-
     </div>
     </div>
     <div class="col-lg-4">
         <div class="dialog dialog-info">
             <h6>{{lesson.title}}</h6>
 
-            <p>{{lesson.summary}}</p>
+            <p ng-bind-html="lesson.summary"></p>
         </div>
     </div>
+
+    <div id="newActivityDialog"
+         class="modal fade"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="mySmallModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">创建一个新{{utils.getActivityType(newActivity.type).title}}</h4>
+                </div>
+
+                <div class="modal-body">
+                    <input class="form-control" data-ng-model="newActivity.title">
+                </div>
+
+                <div class="modal-footer">
+                    <a class="btn" data-ng-click="createActivity()">添加</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editLectureDialog"
+         class="modal fade"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="mySmallModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">
+                        [{{utils.getActivityType('lecture').title}}]&nbsp;{{editActivity.title}}
+                    </h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">标题</span>
+                                    <input type="text" class="form-control" data-ng-model="editActivity.title"
+                                           placeholder="Prepend"/>
+                                </div>
+                            </div>
+                            <div>
+                                <textarea class="componentBlock form-control"
+                                          ng-model="editActivity.body"
+                                          rows="10"
+                                          placeholder="内容"
+                                        >
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="previewZone" ng-bind-html="editActivity.body"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-embossed btn-wide"
+                            data-ng-click="removeActivity(editActivity)">删除
+                    </button>
+                    <button class="btn btn-primary btn-embossed btn-wide"
+                            data-ng-click="saveActivity(editActivity)">保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editQuizDialog"
+         class="modal fade"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="mySmallModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title">
+                        [{{utils.getActivityType('quiz').title}}]&nbsp;{{editActivity.title}}
+                    </h4>
+                </div>
+
+                <div class="modal-body" data-ng-include="'partials/editor/quiz.html'">
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-embossed btn-wide"
+                            data-ng-click="removeActivity(editActivity)">删除
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </section>
-
-
-<div class="modal" id="infoDialg">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title">Modal header</h4>
-            </div>
-
-            <div class="modal-body">
-                <p>Modal content</p>
-            </div>
-
-            <div class="modal-footer">
-                <a href="#" class="btn">OK</a>
-            </div>
-        </div>
-    </div>
-</div>

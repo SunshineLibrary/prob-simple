@@ -1,0 +1,15 @@
+<div data-ng-controller="ProblemController">
+    <div>
+        <div class="problemBody mvs" data-ng-include="'partials/editor/'+problem.type+'.html'"></div>
+    </div>
+    <div class="componentBlock row">
+        <div class="col-lg-6">
+            <button class="btn btn-default btn-embossed btn-sm" data-ng-click="removeProblem()">删除</button>
+            <button class="btn btn-primary btn-embossed btn-sm"
+                    ng-disabled="(saveButtonState.state!='save')"
+                    data-ng-click="save()">
+                {{saveButtonState.title}}
+            </button>
+        </div>
+    </div>
+</div>

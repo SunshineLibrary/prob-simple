@@ -13,5 +13,6 @@ angular.module('myApp', [
         $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
         $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
         $routeProvider.when('/lesson/:lessonId', {templateUrl: 'partials/lesson.html', controller: 'LessonController'});
+        $routeProvider.when('/activity/:activityId', {templateUrl: 'partials/activity.html', controller: 'ActivityController'});
         $routeProvider.otherwise({redirectTo: '/view1'});
     }]);

@@ -20,34 +20,47 @@ mongoose.connect("mongodb://localhost/coursebuilder");
 //var restful = require('node-restful')
 var path = require('path')
 
+var Problem = new Schema({
+    title: { type: String},
+    body: { type: String },
+    type: { type: String},
+    correct_answer: { type: String},
+    choices: [
+        {
+            id: { type: String},
+            body: { type: String},
+            is_correct: { type: Boolean}
+        }
+    ]
+});
+var ProblemModel = mongoose.model('Problem', Problem);
+
+var Activity = new Schema({
+    title: { type: String, required: true },
+    summary: { type: String },
+    body: { type: String },
+    type: { type: String},
+    is_final: { type: Boolean},
+    randomize_problems: { type: Boolean},
+    randomize_choices: { type: Boolean},
+    problems: [
+        {type: ObjectId, ref: "Problem"}
+    ]
+});
+var ActivityModel = mongoose.model('Activity', Activity);
+
 var Lesson = new Schema({
     title: { type: String, required: true },
-    summary: { type: String }
+    summary: { type: String },
+    activities: [
+        {type: ObjectId, ref: "Activity"}
+    ]
 });
 var LessonModel = mongoose.model('Lesson', Lesson);
 
+restify.serve(app, ProblemModel);
+restify.serve(app, ActivityModel);
 restify.serve(app, LessonModel);
-
-
-//
-//var Chapter = app.chapter = restful.model('chapter', mongoose.Schema({
-//        title: 'string'
-//    }))
-//    .methods(['get', 'post', 'put', 'delete']);
-//Chapter.register(app, '/1/chapters');
-//
-//var Lesson = app.lesson = restful.model('lesson', mongoose.Schema({
-//        title: 'string'
-//    }))
-//    .methods(['get', 'post', 'put', 'delete']);
-//Lesson.register(app, '/1/lessons');
-//
-//var Activity = app.activity = restful.model('activity', mongoose.Schema({
-//        title: 'string'
-//    }))
-//    .methods(['get', 'post', 'put', 'delete']);
-//Activity.register(app, '/1/activities');
-
 
 var server = app.listen(3000, function () {
     console.log('Listening on port %d', server.address().port);
