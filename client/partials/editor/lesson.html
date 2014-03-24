@@ -2,6 +2,7 @@
     <div class="col-lg-8">
         <div class="panelBlock">
             <h4>{{lesson.title}}</h4>
+
             <div>
                 <input class="componentBlock form-control" data-ng-model="lesson.title" placeholder="title">
                 <textarea class="componentBlock form-control"
@@ -41,7 +42,7 @@
         <div class="dialog dialog-info">
             <h6>{{lesson.title}}</h6>
 
-            <p ng-bind-html="lesson.summary"></p>
+            <p mathjax-bind="lesson.summary"></p>
         </div>
     </div>
 
@@ -80,33 +81,15 @@
                 <div class="modal-header">
                     <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">
-                        [{{utils.getActivityType('lecture').title}}]&nbsp;{{editActivity.title}}
+                        <span class="label label-default">
+                            {{utils.getActivityType(editActivity.type).title}}
+                        </span>&nbsp;
+                        {{editActivity.title}}
                     </h4>
                 </div>
 
                 <div class="modal-body">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon">标题</span>
-                                    <input type="text" class="form-control" data-ng-model="editActivity.title"
-                                           placeholder="Prepend"/>
-                                </div>
-                            </div>
-                            <div>
-                                <textarea class="componentBlock form-control"
-                                          ng-model="editActivity.body"
-                                          rows="10"
-                                          placeholder="内容"
-                                        >
-                                </textarea>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="previewZone" ng-bind-html="editActivity.body"></div>
-                        </div>
-                    </div>
+                    <div lecture-editor></div>
                 </div>
 
                 <div class="modal-footer">
@@ -114,7 +97,9 @@
                             data-ng-click="removeActivity(editActivity)">删除
                     </button>
                     <button class="btn btn-primary btn-embossed btn-wide"
-                            data-ng-click="saveActivity(editActivity)">保存
+                            ng-disabled="(saveButtonState.state!='save')"
+                            data-ng-click="saveActivity(editActivity)">
+                        {{saveButtonState.title}}
                     </button>
                 </div>
             </div>
@@ -132,7 +117,11 @@
                 <div class="modal-header">
                     <button type="button" class="close fui-cross" data-dismiss="modal" aria-hidden="true"></button>
                     <h4 class="modal-title">
-                        [{{utils.getActivityType('quiz').title}}]&nbsp;{{editActivity.title}}
+                        <span class="label label-default">
+                            {{utils.getActivityType(editActivity.type).title}}
+                        </span>&nbsp;
+                        {{editActivity.title}}
+                        <small>{{editActivity._id}}</small>
                     </h4>
                 </div>
 

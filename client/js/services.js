@@ -84,7 +84,10 @@ angular.module('myApp.services', []).
                 });
             },
             allProblemTypes: PROBLEM_TYPES,
-            allSaveButtonStates: SAVE_BUTTON_STATES
+            allSaveButtonStates: SAVE_BUTTON_STATES,
+            generateUUID: function () {
+                return uuid.v4();
+            }
         };
     }])
 ;

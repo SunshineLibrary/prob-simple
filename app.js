@@ -43,6 +43,7 @@ var Activity = new Schema({
     is_final: { type: Boolean},
     randomize_problems: { type: Boolean},
     randomize_choices: { type: Boolean},
+    show_answer: { type: Boolean},
     problems: [
         {type: ObjectId, ref: "Problem"}
     ]

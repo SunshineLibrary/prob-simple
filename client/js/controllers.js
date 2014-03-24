@@ -84,9 +84,17 @@ angular.module('myApp.controllers', ['ngResource', 'ngRoute', 'ngSanitize']).
                 });
             };
 
+            $scope.saveButtonState = $scope.utils.allSaveButtonStates.save;
             $scope.saveActivity = function (activity) {
+                $scope.saveButtonState = $scope.utils.allSaveButtonStates.saving;
                 activity.$save(function () {
-                    $scope.refresh();
+                    $timeout(function () {
+                        $scope.saveButtonState = $scope.utils.allSaveButtonStates.saved;
+                        $timeout(function () {
+                            $scope.saveButtonState = $scope.utils.allSaveButtonStates.save;
+                        }, 1500);
+                        $scope.refresh();
+                    }, 300);
                 });
             };
 
@@ -123,23 +131,42 @@ angular.module('myApp.controllers', ['ngResource', 'ngRoute', 'ngSanitize']).
 //                $('[type=checkbox]').checkbox();
 //            },0)
         }])
-    .directive('xproblemPreview', function () {
-        console.log('problem preview');
-        return {
-            templateUrl: 'partials/preview/problem.html'
-        };
-    })
-    .directive('xproblemEditor', function () {
-        return {
-            templateUrl: 'partials/editor/problem.html'
-        };
-    })
+    .controller('ActivityController', ['$scope', '$routeParams', 'Lessons', 'Activities', 'Problems', 'Utils', '$timeout',
+        function ($scope, $routeParams, Lessons, Activities, Problems, Utils, $timeout) {
+            $scope.utils = Utils;
+            $scope.refresh = function (cb) {
+                Activities.get({activityId: $routeParams.activityId, "populate": "problems"}, function (activity) {
+                    $scope.activity = activity;
+                    if (cb) cb(activity);
+                });
+            }
+            $scope.init = function () {
+                $scope.refresh(function (activity) {
+                    $scope.activity = activity;
+                });
+            };
+
+            $scope.saveButtonState = $scope.utils.allSaveButtonStates.save;
+            $scope.saveActivity = function (activity) {
+                $scope.saveButtonState = $scope.utils.allSaveButtonStates.saving;
+                activity.$save(function () {
+                    $timeout(function () {
+                        $scope.saveButtonState = $scope.utils.allSaveButtonStates.saved;
+                        $timeout(function () {
+                            $scope.saveButtonState = $scope.utils.allSaveButtonStates.save;
+                        }, 1500);
+                        $scope.refresh();
+                    }, 300);
+                });
+            };
+
+        }])
     .controller('ProblemController', ['$scope', '$routeParams', 'Lessons', 'Activities', 'Problems', 'Utils', '$timeout',
         function ($scope, $routeParams, Lessons, Activities, Problems, Utils, $timeout) {
             $scope.utils = Utils;
             $scope.saveButtonState = $scope.utils.allSaveButtonStates.save;
             $scope.init = function () {
-                Problems.get({problemId: $scope.problem}, function (problem) {
+                Problems.get({problemId: $scope.problem._id}, function (problem) {
                     $scope.problem = problem;
                 });
             };
@@ -234,12 +261,4 @@ angular.module('myApp.controllers', ['ngResource', 'ngRoute', 'ngSanitize']).
                 c.is_correct = !c.is_correct;
             }
         }
-    ])
-    .directive('xcheckbox', function () {
-        return {
-            link: function ($scope, $element, $attrs) {
-
-            },
-            templateUrl: 'partials/common/checkbox.html'
-        };
-    });
+    ]);

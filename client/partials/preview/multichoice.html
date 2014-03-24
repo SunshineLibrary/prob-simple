@@ -11,8 +11,8 @@
     <ul class="list-group">
         <li class="list-group-item"
             data-ng-class="{'list-group-item-success': choice.is_correct}"
-            data-ng-repeat="choice in problem.choices">
-            {{choice.body}}
+            data-ng-repeat="choice in problem.choices"
+            mathjax-bind="choice.body">
         </li>
     </ul>
 </div>

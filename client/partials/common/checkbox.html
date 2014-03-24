@@ -1,3 +1,15 @@
-<div>
-    checkbox
+<div class="onoffswitch mvs">
+    <div>{{title}}</div>
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{checkboxId}}"
+           data-ng-model="target">
+    <label class="onoffswitch-label" for="{{checkboxId}}">
+        <div class="onoffswitch-inner">
+            <div class="onoffswitch-active">
+                <div class="onoffswitch-switch">是</div>
+            </div>
+            <div class="onoffswitch-inactive">
+                <div class="onoffswitch-switch">否</div>
+            </div>
+        </div>
+    </label>
 </div>

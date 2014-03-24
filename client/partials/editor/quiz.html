@@ -1,84 +1,34 @@
 <div>
     <div class="row">
         <div class="col-lg-6">
-            <div class="form-group">
-                <div class="input-group">
-                    <span class="input-group-addon">标题</span>
-                    <input type="text" class="form-control" data-ng-model="editActivity.title"
-                           placeholder="Prepend"/>
-                </div>
-            </div>
-            <div>
-
-                <!--<div class="roundedOne">-->
-                <!--<input data-ng-model="editActivity.is_final" type="checkbox" value="None" id="roundedOne" name="check" />-->
-                <!--<label for="roundedOne"></label>-->
-                <!--</div>-->
-                <!--<label>-->
-                <!--<input type="checkbox"-->
-                <!--data-ng-model="editActivity.randomize_problems">-->
-                <!--题目随机-->
-                <!--</label>-->
-                <!--<label>-->
-                <!--<input type="checkbox"-->
-                <!--data-ng-model="editActivity.randomize_choices ">-->
-                <!--选项随机-->
-                <!--</label>-->
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input type="text" class="form-control" data-ng-model="activity.title"
+                       placeholder="Prepend"/>
             </div>
         </div>
-        <div class="col-lg-2">
-            <div class="onoffswitch">
-                <label>是否为终测</label>
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                       data-ng-model="editActivity.is_final">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <div class="onoffswitch-inner">
-                        <div class="onoffswitch-active">
-                            <div class="onoffswitch-switch">是</div>
-                        </div>
-                        <div class="onoffswitch-inactive">
-                            <div class="onoffswitch-switch">否</div>
-                        </div>
-                    </div>
-                </label>
-            </div>
+    </div>
+    <div class="row">
+        <div xcheckbox class="col-lg-2"
+             target="activity.is_final" title="终测题">
         </div>
-        <div class="col-lg-2">
-            <div class="onoffswitch">
-                <label>随机题目</label>
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                       data-ng-model="editActivity.randomize_problems">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <div class="onoffswitch-inner">
-                        <div class="onoffswitch-active">
-                            <div class="onoffswitch-switch">是</div>
-                        </div>
-                        <div class="onoffswitch-inactive">
-                            <div class="onoffswitch-switch">否</div>
-                        </div>
-                    </div>
-                </label>
-            </div>
+        <div xcheckbox class="col-lg-2"
+             target="activity.randomize_problems" title="随机题目">
         </div>
-        <div class="col-lg-2">
-            <div class="onoffswitch">
-                <label>随机选项</label>
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
-                       data-ng-model="editActivity.randomize_choices">
-                <label class="onoffswitch-label" for="myonoffswitch">
-                    <div class="onoffswitch-inner">
-                        <div class="onoffswitch-active">
-                            <div class="onoffswitch-switch">是</div>
-                        </div>
-                        <div class="onoffswitch-inactive">
-                            <div class="onoffswitch-switch">否</div>
-                        </div>
-                    </div>
-                </label>
-            </div>
+        <div xcheckbox class="col-lg-2"
+             target="activity.randomize_choices" title="随机选项">
         </div>
-        <div class="col-lg-12">
-            <div class="btn btn-primary" data-ng-click="saveActivity(editActivity)">保存</div>
+        <div xcheckbox class="col-lg-2"
+             target="activity.show_answer" title="显示答案">
+        </div>
+    </div>
+    <div class="row mvs">
+        <div class="col-lg-3">
+            <div class="btn btn-primary btn-embossed btn-block"
+                    ng-disabled="(saveButtonState.state!='save')"
+                    data-ng-click="saveActivity(activity)">
+                {{saveButtonState.title}}
+            </div>
         </div>
     </div>
     <hr>
@@ -96,19 +46,19 @@
     <div class="row"
          data-ng-controller="ProblemController"
          data-ng-init="init()"
-         data-ng-repeat="problem in editActivity.problems">
+         data-ng-repeat="problem in activity.problems">
         <hr>
         <div class="col-lg-6">
-                            <span class="label label-default">
-                                {{$index+1}}. {{utils.getProblemType(problem.type).title}}
-                            </span>
+            <span class="label label-default">
+                {{$index+1}}. {{utils.getProblemType(problem.type).title}}
+            </span>
 
             <div class="mvs" xproblem-editor></div>
         </div>
         <div class="col-lg-6">
-                            <span class="label label-default">
-                                预览
-                            </span>
+            <span class="label label-default">
+                预览
+            </span>
 
             <div class="mvs" xproblem-preview></div>
         </div>

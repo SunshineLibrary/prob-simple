@@ -1,0 +1,38 @@
+<nav class="navbar navbar-inverse navbar-embossed navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-02">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="#"><span class="fui-book"></span></a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-02">
+        <ul class="nav navbar-nav">
+            <li><a href="#fakelink">Products</a></li>
+            <li><a><span class="fui-triangle-right-large"></span>
+            </a></li>
+            <li><a href="#fakelink">Features</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div data-ng-init="init()" data-ng-controller="ActivityController" ng-cloak>
+    <div class="modal-header">
+        <div class="btn btn-default pull-right">返回</div>
+        <h4 class="modal-title">
+            <span class="label label-default">
+                {{utils.getActivityType(activity.type).title}}
+            </span>&nbsp;
+            {{activity.title}}
+            <small>{{activity._id}}</small>
+        </h4>
+    </div>
+
+    <div class="modal-body" data-ng-include="'partials/editor/'+activity.type+'.html'">
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-default btn-embossed btn-wide"
+                data-ng-click="removeActivity(activity)">删除
+        </button>
+    </div>
+</div>

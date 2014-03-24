@@ -4,15 +4,15 @@
             <h3 class="panel-title">{{problem.title}}</h3>
         </div>
         <div class="panel-body">
-            <p>{{problem.body}}</p>
+            <p mathjax-bind="problem.body"></p>
         </div>
     </div>
 
     <ul class="list-group">
         <li class="list-group-item"
             data-ng-class="{'list-group-item-success': choice.is_correct}"
-            data-ng-repeat="choice in problem.choices">
-            {{choice.body}}
+            data-ng-repeat="choice in problem.choices"
+            mathjax-bind="choice.body">
         </li>
     </ul>
 </div>

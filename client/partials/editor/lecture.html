@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col-lg-6">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input type="text" class="form-control" data-ng-model="editActivity.title"
+                       placeholder="Prepend"/>
+            </div>
+        </div>
+        <div>
+            <textarea class="componentBlock form-control"
+                      ng-model="editActivity.body"
+                      rows="10"
+                      placeholder="内容"
+                    >
+            </textarea>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="previewZone" mathjax-bind="editActivity.body"></div>
+    </div>
+</div>
