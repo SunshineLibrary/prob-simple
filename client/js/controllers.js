@@ -163,6 +163,18 @@ angular.module('myApp.controllers', ['ngResource', 'ngRoute', 'ngSanitize']).
                 })
             };
 
+            $scope.createProblem = function (type) {
+                var newProblem = new Problems({type: type});
+                newProblem.$save(function () {
+                    $scope.activity.problems.push(newProblem._id);
+                    $scope.activity.$save(function () {
+                        $scope.refresh(function (activity) {
+                            $scope.activity = activity;
+                        });
+                    });
+                });
+            }
+
         }])
     .controller('ProblemController', ['$scope', '$routeParams', 'Lessons', 'Activities', 'Problems', 'Utils', '$timeout',
         function ($scope, $routeParams, Lessons, Activities, Problems, Utils, $timeout) {
