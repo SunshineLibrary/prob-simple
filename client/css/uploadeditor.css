@@ -1,0 +1,9 @@
+.uploadeditor {
+    padding-right: 5em
+}
+
+.uploadeditor-status {
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-delay: 2s;
+}

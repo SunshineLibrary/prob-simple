@@ -2,9 +2,7 @@
     <div class="form-group">
         <input class="form-control input-sm" data-ng-model="problem.title" placeholder="标题"/>
     </div>
-    <div class="form-group">
-        <textarea class="form-control input-sm" data-ng-model="problem.body" placeholder="内容" rows="3"/>
-    </div>
+    <div upload-editor target="problem.body"></div>
     <div class="form-group">
         <input class="form-control input-sm" data-ng-model="problem.correct_answer" placeholder="正确答案"/>
     </div>

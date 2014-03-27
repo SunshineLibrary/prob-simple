@@ -25,8 +25,8 @@
     <div class="row mvs">
         <div class="col-lg-3">
             <div class="btn btn-primary btn-embossed btn-block"
-                    ng-disabled="(saveButtonState.state!='save')"
-                    data-ng-click="saveActivity(activity)">
+                 ng-disabled="(saveButtonState.state!='save')"
+                 data-ng-click="saveActivity(activity)">
                 {{saveButtonState.title}}
             </div>
         </div>
@@ -43,15 +43,15 @@
         </div>
     </div>
 
-    <div class="row"
+    <div class="row problems-strip"
          data-ng-controller="ProblemController"
          data-ng-init="init()"
          data-ng-repeat="problem in activity.problems">
         <hr>
         <div class="col-lg-6">
-            <span class="label label-default">
+            <h5>
                 {{$index+1}}. {{utils.getProblemType(problem.type).title}}
-            </span>
+            </h5>
 
             <div class="mvs" xproblem-editor></div>
         </div>

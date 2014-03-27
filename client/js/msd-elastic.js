@@ -1,108 +1,7 @@
-'use strict';
-
-/* Directives */
-
-
+/**
+ * Created by fengxiaoping on 3/26/14.
+ */
 angular.module('myApp.directives', [])
-    .directive('appVersion', ['version', function (version) {
-        return function (scope, elm, attrs) {
-            elm.text(version);
-        };
-    }])
-    .directive("mathjaxBind", function () {
-        return {
-            restrict: "A",
-            controller: ["$scope", "$element", "$attrs",
-                function ($scope, $element, $attrs) {
-                    setTimeout(function () {
-                        $scope.$apply(function () {
-                            $scope.$watch($attrs.mathjaxBind, function (value) {
-                                $element.html(value == undefined ? "" : value);
-                                MathJax.Hub.Queue(["Typeset", MathJax.Hub, $element[0]]);
-                            });
-                        });
-                    }, 0);
-                }]
-        };
-    })
-    .directive('xproblemPreview', function () {
-        console.log('problem preview');
-        return {
-            templateUrl: 'partials/preview/problem.html'
-        };
-    })
-    .directive('xproblemEditor', function () {
-        return {
-            templateUrl: 'partials/editor/problem.html'
-        };
-    })
-    .directive('lectureEditor', function () {
-        return {
-            templateUrl: 'partials/editor/lecture.html'
-        };
-    })
-    .directive('xcheckbox', function () {
-        return {
-            scope: {
-                title: '@title',
-                target: '=target'
-            },
-            link: function ($scope, $element, $attrs) {
-                $scope.checkboxId = uuid.v4();
-            },
-            templateUrl: 'partials/common/checkbox.html'
-        };
-    })
-    .directive('uploadEditor', function () {
-        return {
-            scope: {
-                target: '=target'
-            },
-            link: function ($scope, $element, $attrs) {
-                var wrapImg = function (url) {
-                    return "<div><img src='" + url + "'></img></div>";
-                }
-                var editorElement = $element.find('textarea')[0];
-                var indicatorElement = $element.find('span')[0];
-                window.ondragover = function (e) {
-                    e.preventDefault()
-
-                }
-                editorElement.ondrop = function (e) {
-                    e.preventDefault();
-                    var uploadFile = e.dataTransfer.files[0];
-                    if (!e.dataTransfer.files[0]) {
-                        console.log('invalid file');
-                    } else {
-                        angular.element(indicatorElement).addClass("flash");
-                        angular.element(indicatorElement).addClass("animated");
-                        filepicker.store(uploadFile, function (InkBlob) {
-                                console.log("Store successful:", JSON.stringify(InkBlob));
-                                $scope.$apply(function () {
-                                    $scope.progress = undefined;
-                                    $scope.target = $scope.target + wrapImg(InkBlob.url);
-                                    angular.element(indicatorElement).removeClass("flash");
-                                    angular.element(indicatorElement).removeClass("animated");
-                                });
-                            }, function (FPError) {
-                                console.log(FPError.toString());
-                                $scope.progress = undefined;
-                                $scope.$apply(function () {
-                                    angular.element(indicatorElement).removeClass("flash");
-                                    angular.element(indicatorElement).removeClass("animated");
-                                });
-                            }, function (progress) {
-                                $scope.$apply(function () {
-                                    $scope.progress = progress + "%";
-                                });
-                            }
-                        );
-                    }
-                }
-            },
-            templateUrl: 'partials/common/uploadeditor.html'
-        };
-    })
     .constant('msdElasticConfig', {
         append: ''
     })
@@ -299,4 +198,4 @@ angular.module('myApp.directives', [])
             }
         };
 
-    }]);
+    }])

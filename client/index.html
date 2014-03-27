@@ -7,10 +7,11 @@
 
     <link rel="stylesheet" href="lib/flatui/bootstrap/css/bootstrap.css"/>
     <link rel="stylesheet" href="lib/flatui/css/flat-ui.css"/>
+    <link rel="stylesheet" href="lib/animate/animate.css"/>
 
     <link rel="stylesheet" href="css/checkbox.css"/>
+    <link rel="stylesheet" href="css/uploadeditor.css"/>
     <link rel="stylesheet" href="css/app.css"/>
-
 </head>
 <body>
 <!--<ul class="menu">-->
@@ -36,8 +37,17 @@
     jax: ["input/AsciiMath", "output/HTML-CSS"],
     extensions: ["asciimath2jax.js"]
     });
+
+
+
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="/lib/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+<script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+<script>
+    filepicker.setKey("A9G27suTXR1qcbkLvqlpXz");
+</script>
+
 
 <script src="lib/flatui/js/jquery-1.8.3.min.js"></script>
 <script src="lib/flatui/js/jquery-ui-1.10.3.custom.min.js"></script>
@@ -66,5 +76,7 @@
 <script src="js/controllers.js"></script>
 <script src="js/filters.js"></script>
 <script src="js/directives.js"></script>
+
+<!--<script src="js/msd-elastic.js"></script>-->
 </body>
 </html>
